@@ -1,0 +1,63 @@
+.leaflet-wrapper {
+  position: relative;
+}
+
+.hinjewadi-map {
+  height: 480px;
+  width: 100%;
+}
+
+.map-key {
+  position: absolute;
+  z-index: 1000;
+  right: 14px;
+  bottom: 14px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 12px;
+  color: #243649;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.18);
+  font-size: 11px;
+}
+
+.map-key span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.map-key i {
+  width: 9px;
+  height: 9px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.key-bus {
+  background: #0f4c81;
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 1px #0f4c81;
+}
+
+.key-yellow {
+  background: #fbbf24;
+}
+
+.key-red {
+  background: #fb7185;
+}
+
+@media (max-width: 760px) {
+  .hinjewadi-map {
+    height: 400px;
+  }
+
+  .map-key {
+    right: 10px;
+    bottom: 10px;
+    max-width: 210px;
+    flex-wrap: wrap;
+  }
+}
