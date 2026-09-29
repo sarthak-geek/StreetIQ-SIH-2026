@@ -17,11 +17,12 @@ CORS(app)
 # ============================================================
 # POSTGRESQL DATABASE DETAILS
 # ============================================================
+#Details like DB_NAME, DB_USER,DB_PASSWORD is removed intentionally for security reasons
 
 DB_HOST = "localhost"
-DB_NAME = "Street_IQ"
-DB_USER = "postgres"
-DB_PASSWORD = "272006"
+DB_NAME = ""  
+DB_USER = ""
+DB_PASSWORD = ""
 DB_PORT = 5432
 
 
