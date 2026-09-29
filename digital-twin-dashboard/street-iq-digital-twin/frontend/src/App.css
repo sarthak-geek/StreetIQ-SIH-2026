@@ -1,702 +1,882 @@
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background: #08111f;
+}
+
+
+/* ============================================================
+   APP SHELL
+   ============================================================ */
+
 .app-shell {
   min-height: 100vh;
+  width: 100%;
+
   color: #e7eef8;
   background: #08111f;
 }
 
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+
 .topbar {
   height: 76px;
+  width: 100%;
+
   padding: 0 28px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   border-bottom: 1px solid #203047;
+
   background: #0b1628;
 }
+
 
 .brand {
   display: flex;
   align-items: center;
+
   gap: 12px;
 }
+
 
 .brand-mark {
   width: 38px;
   height: 38px;
+
   display: grid;
   place-items: center;
+
   color: #08111f;
   background: #6ee7b7;
+
   border-radius: 10px;
+
   font-weight: 800;
 }
 
-.brand h1,
-.workspace-heading h2,
-.control-panel h2 {
-  margin: 0;
-  color: #f8fbff;
-}
 
 .brand h1 {
+  margin: 0;
+
+  color: #f8fbff;
+
   font-size: 19px;
 }
 
-.brand p,
-.workspace-heading p,
-.control-panel p {
+
+.brand p {
   margin: 4px 0 0;
+
   color: #91a4bb;
+
   font-size: 13px;
 }
+
 
 .system-status {
   display: flex;
   align-items: center;
+
   gap: 8px;
+
   color: #a7f3d0;
+
   font-size: 13px;
 }
+
 
 .status-dot {
   width: 8px;
   height: 8px;
+
   border-radius: 50%;
+
   background: #34d399;
+
   box-shadow: 0 0 12px #34d399;
 }
 
+
+/* ============================================================
+   MAIN 3-COLUMN LAYOUT
+   ============================================================ */
+
 .dashboard-layout {
   min-height: calc(100vh - 76px);
+
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr) 310px;
+
+  grid-template-columns:
+    220px
+    minmax(0, 1fr)
+    310px;
 }
 
+
+/* ============================================================
+   LEFT SIDEBAR
+   ============================================================ */
+
 .sidebar {
+  min-width: 0;
+
   padding: 24px 14px;
+
   display: flex;
   flex-direction: column;
+
   border-right: 1px solid #203047;
+
   background: #0b1628;
 }
+
 
 .sidebar-label,
 .eyebrow {
   margin: 0 0 12px;
+
   color: #607896;
+
   font-size: 11px;
   font-weight: 700;
+
   letter-spacing: 1.2px;
 }
 
+
 .nav-item {
+  width: 100%;
+
   padding: 12px 14px;
+
   color: #aabbd0;
+
   background: transparent;
+
   border: 0;
   border-radius: 8px;
+
   text-align: left;
+
   cursor: pointer;
+
   font: inherit;
   font-size: 14px;
 }
 
+
 .nav-item:hover,
 .nav-item.active {
   color: #ffffff;
+
   background: #1a2b43;
 }
 
-.sidebar-footer {
-  margin-top: auto;
-  padding: 14px;
-  border: 1px solid #203047;
-  border-radius: 10px;
-  background: #101e32;
-}
 
-.sidebar-footer p,
-.sidebar-footer span {
-  display: block;
-  margin: 0;
-  color: #91a4bb;
-  font-size: 12px;
-}
-
-.sidebar-footer strong {
-  display: block;
-  margin: 6px 0 4px;
-  color: #ffffff;
-  font-size: 14px;
-}
+/* ============================================================
+   MAIN WORKSPACE
+   ============================================================ */
 
 .workspace {
+  min-width: 0;
+
   padding: 28px;
+
   background: #08111f;
 }
+
 
 .workspace-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  gap: 20px;
 }
 
-.workspace-heading h2,
-.control-panel h2 {
+
+.active-bus-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 7px 11px;
+
+  border: 1px solid #203047;
+  border-radius: 7px;
+
+  background: #0e1a2d;
+}
+
+
+.active-bus-status span {
+  color: #607896;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+.active-bus-status strong {
+  color: #6ee7b7;
+
+  font-size: 16px;
+  font-weight: 700;
+}
+
+
+.workspace-heading h2 {
+  margin: 0;
+
+  color: #f8fbff;
+
   font-size: 22px;
 }
 
-.outline-button {
-  padding: 9px 13px;
-  color: #c6d3e3;
-  background: transparent;
-  border: 1px solid #38506f;
-  border-radius: 7px;
-  cursor: pointer;
-}
 
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin: 24px 0;
-}
+.workspace-heading p:not(.eyebrow) {
+  margin: 4px 0 0;
 
-.metric-card {
-  padding: 16px;
-  border: 1px solid #203047;
-  border-radius: 12px;
-  background: #0e1a2d;
-}
-
-.metric-card p,
-.metric-card span {
-  display: block;
-  margin: 0;
   color: #91a4bb;
-  font-size: 12px;
-}
 
-.metric-card strong {
-  display: block;
-  margin: 10px 0 4px;
-  color: #ffffff;
-  font-size: 27px;
-}
-
-.map-panel {
-  overflow: hidden;
-  border: 1px solid #203047;
-  border-radius: 14px;
-  background: #0e1a2d;
-}
-
-.map-toolbar {
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #203047;
-}
-
-.map-toolbar strong,
-.map-toolbar span {
-  display: block;
-}
-
-.map-toolbar strong {
-  color: #ffffff;
-  font-size: 14px;
-}
-
-.map-toolbar span {
-  margin-top: 4px;
-  color: #91a4bb;
-  font-size: 11px;
-}
-
-.legend {
-  display: flex;
-  gap: 12px;
-}
-
-.legend span {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #afc0d4;
-  font-size: 11px;
-}
-
-.legend i {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.healthy { background: #34d399; }
-.watch { background: #fbbf24; }
-.critical { background: #fb7185; }
-
-.map-canvas {
-  position: relative;
-  min-height: 480px;
-  overflow: hidden;
-  background:
-    linear-gradient(90deg, rgba(50, 76, 104, 0.18) 1px, transparent 1px),
-    linear-gradient(rgba(50, 76, 104, 0.18) 1px, transparent 1px),
-    #0a1525;
-  background-size: 38px 38px;
-}
-
-.road {
-  position: absolute;
-  height: 16px;
-  border-radius: 999px;
-  background: #506a84;
-  opacity: 0.9;
-}
-
-.road-one {
-  width: 70%;
-  top: 36%;
-  left: 12%;
-  transform: rotate(-12deg);
-}
-
-.road-two {
-  width: 54%;
-  top: 61%;
-  left: 24%;
-  transform: rotate(22deg);
-}
-
-.road-three {
-  width: 44%;
-  top: 22%;
-  left: 42%;
-  transform: rotate(64deg);
-}
-
-.map-area {
-  position: absolute;
-  color: #4f6985;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.area-one { top: 14%; left: 12%; }
-.area-two { top: 14%; right: 20%; }
-.area-three { bottom: 12%; left: 38%; }
-
-.segment,
-.bus,
-.signal,
-.alert-marker {
-  position: absolute;
-  display: grid;
-  place-items: center;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.segment {
-  padding: 6px 8px;
-  color: #d9fff0;
-  border: 1px solid #34d399;
-  border-radius: 6px;
-  background: #123c3b;
-}
-
-.segment-one { top: 32%; left: 31%; }
-.segment-two { top: 41%; left: 54%; }
-.segment-three { top: 56%; left: 48%; }
-
-.bus {
-  width: 46px;
-  height: 28px;
-  color: #0b1628;
-  border-radius: 6px;
-  background: #8ec5ff;
-}
-
-.bus-one { top: 27%; left: 42%; }
-.bus-two { top: 62%; left: 56%; }
-
-.signal {
-  width: 48px;
-  height: 28px;
-  color: #1a1101;
-  border-radius: 14px;
-  background: #fbbf24;
-}
-
-.signal-one { top: 44%; right: 18%; }
-
-.alert-marker {
-  width: 32px;
-  height: 32px;
-  top: 50%;
-  left: 36%;
-  color: white;
-  border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 0 0 18px rgba(239, 68, 68, 0.65);
-}
-
-.map-caption {
-  position: absolute;
-  right: 16px;
-  bottom: 14px;
-  left: 16px;
-  margin: 0;
-  color: #8ea3bb;
-  font-size: 11px;
-  text-align: center;
-}
-
-.control-panel {
-  padding: 28px 20px;
-  border-left: 1px solid #203047;
-  background: #0b1628;
-}
-
-.panel-copy {
-  line-height: 1.55;
-}
-
-.scenario-card {
-  width: 100%;
-  margin-top: 14px;
-  padding: 13px;
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  color: #dce8f6;
-  background: #101e32;
-  border: 1px solid #263b56;
-  border-radius: 10px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.scenario-card:hover {
-  transform: translateY(-1px);
-  border-color: #54779f;
-}
-
-.scenario-card > span {
-  width: 28px;
-  height: 28px;
-  display: grid;
-  place-items: center;
-  color: #0a1525;
-  border-radius: 7px;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.pothole > span { background: #fb7185; }
-.traffic > span { background: #fbbf24; }
-
-
-.scenario-card strong,
-.scenario-card small {
-  display: block;
-}
-
-.scenario-card strong {
   font-size: 13px;
 }
 
-.scenario-card small {
-  margin-top: 4px;
-  color: #91a4bb;
-  font-size: 11px;
-  line-height: 1.35;
+
+/* ============================================================
+   BUTTON
+   ============================================================ */
+
+.outline-button {
+  padding: 9px 13px;
+
+  color: #c6d3e3;
+
+  background: transparent;
+
+  border: 1px solid #38506f;
+  border-radius: 7px;
+
+  cursor: pointer;
 }
 
-.pipeline {
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid #203047;
-}
 
-.pipeline p {
-  margin: 0 0 10px;
-  color: #607896;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+/* ============================================================
+   MAP PANEL
+   ============================================================ */
 
-.pipeline ol {
-  margin: 0;
-  padding-left: 22px;
-  color: #b8c7d9;
-  font-size: 12px;
-  line-height: 1.9;
-}
-
-@media (max-width: 1180px) {
-  .dashboard-layout {
-    grid-template-columns: 190px minmax(0, 1fr);
-  }
-
-  .control-panel {
-    grid-column: 1 / -1;
-    border-top: 1px solid #203047;
-    border-left: 0;
-  }
-
-  .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 760px) {
-  .topbar {
-    padding: 0 16px;
-  }
-
-  .dashboard-layout {
-    display: block;
-  }
-
-  .sidebar {
-    display: none;
-  }
-
-  .workspace,
-  .control-panel {
-    padding: 20px 16px;
-  }
-
-  .workspace-heading,
-  .map-toolbar {
-    align-items: flex-start;
-    gap: 12px;
-    flex-direction: column;
-  }
-
-  .metrics-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .legend {
-    flex-wrap: wrap;
-  }
-}
-
-.scenario-card:disabled {
-  cursor: wait;
-  opacity: 0.7;
-}
-
-.event-feed {
-  margin-top: 24px;
-  padding-top: 20px;
-  border-top: 1px solid #203047;
-}
-
-.event-feed > p {
-  margin: 0 0 10px;
-  color: #607896;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.event-card {
-  margin-top: 8px;
-  padding: 10px;
-  border-left: 4px solid #64748b;
-  border-radius: 6px;
-  background: #101e32;
-}
-
-.event-card strong,
-.event-card span {
-  display: block;
-}
-
-.event-card strong {
-  color: #eef6ff;
-  font-size: 12px;
-}
-
-.event-card span {
-  margin-top: 4px;
-  color: #aabbd0;
-  font-size: 11px;
-  line-height: 1.45;
-}
-
-.event-card.warning {
-  border-left-color: #fbbf24;
-}
-
-.event-card.success {
-  border-left-color: #34d399;
-}
-
-.event-card.critical {
-  border-left-color: #fb7185;
-}
-
-.simulation-clock {
-  color: #dbeafe;
-  font-variant-numeric: tabular-nums;
-}
-
-.time-scale {
-  padding: 3px 7px;
-  color: #7dd3fc;
-  border: 1px solid #255277;
-  border-radius: 5px;
-  background: #0e2942;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.event-card time {
-  display: block;
-  margin-top: 7px;
-  color: #7089a6;
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-}
-
-.service-selector {
-  display: block;
-  margin-top: 18px;
-  padding: 12px;
-  color: #b8c7d9;
-  border: 1px solid #263b56;
-  border-radius: 10px;
-  background: #101e32;
-}
-
-.service-selector span,
-.service-selector small {
-  display: block;
-}
-
-.service-selector span {
-  margin-bottom: 7px;
-  color: #91a4bb;
-  font-size: 11px;
-}
-
-.service-selector select {
+.map-panel {
   width: 100%;
-  padding: 8px;
-  color: #eaf2fb;
-  border: 1px solid #39506d;
-  border-radius: 6px;
-  outline: none;
-  background: #0b1628;
-}
 
-.service-selector small {
-  margin-top: 8px;
-  color: #7dd3fc;
-  font-size: 11px;
-}
+  overflow: hidden;
 
-.simulation-clock {
-  color: #dbeafe;
-  font-variant-numeric: tabular-nums;
-}
-
-.time-scale {
-  padding: 3px 7px;
-  color: #7dd3fc;
-  border: 1px solid #255277;
-  border-radius: 5px;
-  background: #0e2942;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.event-card time {
-  display: block;
-  margin-top: 7px;
-  color: #7089a6;
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-}
-.segment-details {
-  margin-top: 18px;
-  padding: 18px;
   border: 1px solid #203047;
-  border-radius: 12px;
+  border-radius: 14px;
+
   background: #0e1a2d;
 }
 
+
+.map-toolbar {
+  min-height: 68px;
+
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #203047;
+}
+
+
+.map-toolbar strong {
+  display: block;
+
+  color: #ffffff;
+
+  font-size: 14px;
+}
+
+
+.map-toolbar span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #91a4bb;
+
+  font-size: 11px;
+}
+
+
+/*
+   The Leaflet map itself is rendered inside .map-canvas.
+   Give it an explicit height so Leaflet knows how large
+   the map should be.
+*/
+
+.map-canvas {
+  width: 100%;
+  height: 480px;
+
+  overflow: hidden;
+
+  background: #0a1525;
+}
+
+
+/* ============================================================
+   NETWORK INFORMATION
+   ============================================================ */
+
+.segment-details {
+  margin-top: 18px;
+
+  padding: 18px;
+
+  border: 1px solid #203047;
+  border-radius: 12px;
+
+  background: #0e1a2d;
+}
+
+
 .segment-details h3 {
   margin: 0;
+
   color: #f8fbff;
+
   font-size: 16px;
 }
 
+
 .segment-data-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
   gap: 10px;
+
   margin-top: 16px;
 }
 
+
 .segment-data-grid article {
+  min-width: 0;
+
   padding: 12px;
+
   border: 1px solid #263b56;
   border-radius: 8px;
+
   background: #101e32;
 }
+
 
 .segment-data-grid span,
 .segment-data-grid strong {
   display: block;
 }
 
+
 .segment-data-grid span {
   color: #91a4bb;
+
   font-size: 11px;
 }
 
+
 .segment-data-grid strong {
   margin-top: 7px;
+
   color: #ffffff;
+
   font-size: 13px;
 }
 
-.segment-empty {
-  margin: 16px 0 0;
-  color: #91a4bb;
-  font-size: 13px;
+
+/* ============================================================
+   RIGHT CONTROL PANEL
+   ============================================================ */
+
+.control-panel {
+  min-width: 0;
+
+  padding: 28px 20px;
+
+  border-left: 1px solid #203047;
+
+  background: #0b1628;
 }
+
+
+.control-panel h2 {
+  margin: 0;
+
+  color: #f8fbff;
+
+  font-size: 22px;
+}
+
+
+.panel-copy {
+  margin: 4px 0 0;
+
+  color: #91a4bb;
+
+  font-size: 13px;
+
+  line-height: 1.55;
+}
+
+
+/* ============================================================
+   SELECTED SEGMENT BOX
+   ============================================================ */
+
+.selected-segment-box {
+  width: 100%;
+
+  margin-top: 20px;
+
+  padding: 16px;
+
+  min-height: 120px;
+
+  border: 1px solid #38506f;
+  border-radius: 10px;
+
+  background: #101e32;
+}
+
+
+.selected-segment-box p {
+  margin: 0 0 10px;
+
+  color: #607896;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+.selected-segment-box h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 15px;
+}
+
+
+/* ============================================================
+   PIPELINE
+   ============================================================ */
+
+.pipeline {
+  margin-top: 24px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #203047;
+}
+
+
+.pipeline p {
+  margin: 0 0 10px;
+
+  color: #607896;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+
+.pipeline ol {
+  margin: 0;
+
+  padding-left: 22px;
+
+  color: #b8c7d9;
+
+  font-size: 12px;
+
+  line-height: 1.9;
+}
+
+
+/* ============================================================
+   RESPONSIVE - TABLET
+   ============================================================ */
+
+@media (max-width: 1180px) {
+
+  .dashboard-layout {
+    grid-template-columns:
+      190px
+      minmax(0, 1fr);
+  }
+
+
+  .control-panel {
+    grid-column: 1 / -1;
+
+    border-top: 1px solid #203047;
+    border-left: 0;
+  }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE - MOBILE
+   ============================================================ */
 
 @media (max-width: 760px) {
-  .segment-data-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  .topbar {
+    height: auto;
+    min-height: 76px;
+
+    padding: 16px;
   }
-}
-.reset-replay-button {
-  width: 100%;
-  margin-top: 14px;
-  padding: 10px;
-  color: #c6d3e3;
-  border: 1px solid #38506f;
-  border-radius: 8px;
-  background: transparent;
-  cursor: pointer;
-  font: inherit;
-  font-size: 13px;
+
+
+  .dashboard-layout {
+    display: block;
+
+    min-height: auto;
+  }
+
+
+  .sidebar {
+    display: none;
+  }
+
+
+  .workspace,
+  .control-panel {
+    padding: 20px 16px;
+  }
+
+
+  .workspace-heading {
+    align-items: flex-start;
+
+    gap: 12px;
+
+    flex-direction: column;
+  }
+
+
+  .segment-data-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  .map-canvas {
+    height: 400px;
+  }
+
 }
 
-.reset-replay-button:disabled {
-  cursor: wait;
-  opacity: 0.55;
+
+@media (max-width: 480px) {
+
+  .segment-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+.selected-segment-box pre {
+  margin: 0;
+  color: #dbeafe;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+
+/* ============================================================
+   ROAD CONDITION DATA
+   ============================================================ */
+
+.road-condition-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.road-condition-item {
+  padding: 10px 0;
+
+  border-bottom: 1px solid #263b56;
+}
+
+
+.road-condition-item:last-child {
+  border-bottom: none;
+}
+
+
+.anomaly-name {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #a7f3d0;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+.anomaly-data {
+  display: block;
+
+  color: #dbeafe;
+
+  font-family:
+    "Consolas",
+    "Courier New",
+    monospace;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+
+.database-loading {
+  color: #91a4bb;
+
+  font-size: 12px;
+}
+
+
+.database-error {
+  color: #fca5a5;
+
+  font-size: 12px;
+}
+
+
+/* ============================================================
+   ROAD CONDITION VISUALIZATION
+   ============================================================ */
+
+.road-condition-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+
+/* ============================================================
+   INDIVIDUAL ANOMALY
+   ============================================================ */
+
+.road-condition-item {
+  width: 100%;
+}
+
+
+/* ============================================================
+   ANOMALY NAME
+   ============================================================ */
+
+.anomaly-name {
+  margin-bottom: 14px;
+
+  color: #a7f3d0;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-transform: none;
+}
+
+
+/* ============================================================
+   VISUALIZATION AREA
+   ============================================================ */
+
+.anomaly-visualization {
+  width: 100%;
+
+  padding: 0 8px;
+}
+
+
+/* ============================================================
+   0% → 100% LINE
+   ============================================================ */
+
+.anomaly-line {
+  position: relative;
+
+  width: 100%;
+  height: 42px;
+
+  border-top: 2px solid #64748b;
+}
+
+
+/* ============================================================
+   START OF LINE
+   ============================================================ */
+
+.line-start {
+  position: absolute;
+
+  left: 0;
+  top: -5px;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #64748b;
+}
+
+
+/* ============================================================
+   END OF LINE
+   ============================================================ */
+
+.line-end {
+  position: absolute;
+
+  right: 0;
+  top: -5px;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: #64748b;
+}
+
+
+/* ============================================================
+   ANOMALY MARKER
+   ============================================================ */
+
+.anomaly-marker {
+  position: absolute;
+
+  top: -7px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-width: 20px;
+}
+
+
+/* ============================================================
+   MARKER DOT
+   ============================================================ */
+
+.marker-dot {
+  width: 12px;
+  height: 12px;
+
+  border-radius: 50%;
+
+  background: #6ee7b7;
+
+  border: 2px solid #0b1628;
+
+  box-shadow:
+    0 0 0 1px #6ee7b7;
+}
+
+
+/* ============================================================
+   VALUE BELOW MARKER
+   ============================================================ */
+
+.marker-value {
+  margin-top: 7px;
+
+  color: #e7eef8;
+
+  font-family:
+    "Consolas",
+    "Courier New",
+    monospace;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   LOADING / ERROR
+   ============================================================ */
+
+.database-loading {
+  color: #91a4bb;
+
+  font-size: 12px;
+}
+
+
+.database-error {
+  color: #fca5a5;
+
+  font-size: 12px;
 }
