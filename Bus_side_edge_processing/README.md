@@ -7,6 +7,20 @@ The system uses a phone/device as a prototype bus camera and GPS sensor. Camera 
 The processed road-condition information is then sent to the PostgreSQL database segment-wise.
 
 ---
+## Configuration Before Running
+
+Before running the application, the following values must be configured according to the user's testing environment.
+
+### Database Configuration
+
+The database credentials have been intentionally removed from the code for security reasons.
+
+In `test.py`, configure the following values:
+
+```python
+DB_CONFIG = {
+    "host": "localhost",
+    "port": 5432,
 
 ## How It Works
 
@@ -43,21 +57,6 @@ Phone Camera + GPS
 
 
 ---
-
-## Configuration Before Running
-
-Before running the application, the following values must be configured according to the user's testing environment.
-
-### Database Configuration
-
-The database credentials have been intentionally removed from the code for security reasons.
-
-In `test.py`, configure the following values:
-
-```python
-DB_CONFIG = {
-    "host": "localhost",
-    "port": 5432,
     "dbname": "",
     "user": "",
     "password": ""
