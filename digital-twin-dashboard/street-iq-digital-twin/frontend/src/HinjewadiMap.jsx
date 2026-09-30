@@ -21,7 +21,10 @@ import './HinjewadiMap.css'
 // ============================================================
 // ROUTE
 // ============================================================
-
+ // These coordinate are of the place close by to us.
+// You can add coordinates of any place here and the code will generate segments of 500m or less ength by itself on provided coordinates.
+// Make sure whene you provide coordinates they are in [longitude, latitude] format
+// also if there are curves or turns on routes, add multiple coordinates for the code to generates segments precisely on the route, otherwise it will be jus a straingh line.
 const hinjewadiLoop = [
   [73.751141, 18.609011],
   [73.752177, 18.613449],
