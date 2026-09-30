@@ -41,6 +41,8 @@ TABLE_NAME = "observations"
 
 transition_region_radius = 0.000239
 
+#the coordinates are of starting point of segments. These coordinates were coosen for the area close to use to test the fucntioning of code.
+#You must change these coordinate according to where you are testing the code, and what route will you follow.
 segments = pd.Series(
     [
         [18.607182, 73.755724],
