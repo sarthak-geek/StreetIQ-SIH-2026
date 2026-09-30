@@ -7,6 +7,8 @@ The system uses a phone/device as a prototype bus camera and GPS sensor. Camera 
 The processed road-condition information is then sent to the PostgreSQL database segment-wise.
 
 ---
+Note: Please fill the databse information pf your database that you generated using the setting_up_databse folder's files before running the code.
+Note: the coordinate of segmetn in the code are from the area closeby to us, please use coordinates of the area where you will test the code.
 
 ## How It Works
 
@@ -43,7 +45,4 @@ Phone Camera + GPS
 
 
 ---
-    "dbname": "",
-    "user": "",
-    "password": ""
-}
+  
