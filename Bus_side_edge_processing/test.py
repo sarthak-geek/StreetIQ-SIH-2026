@@ -23,13 +23,13 @@ sock = Sock(app)
 # ============================================================
 # DATABASE CONFIGURATION
 # ============================================================
-
+#password, dbname and user values are removed intentionally due to security reasons
 DB_CONFIG = {
     "host": "localhost",
     "port": 5432,
-    "dbname": "Street_IQ",
-    "user": "postgres",
-    "password": "272006"
+    "dbname": "",
+    "user": "",
+    "password": ""
 }
 
 TABLE_NAME = "observations"
