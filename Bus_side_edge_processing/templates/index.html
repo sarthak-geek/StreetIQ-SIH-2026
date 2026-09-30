@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Phone Sensor</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin: 20px;
+        }
+
+        video {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .data {
+            font-size: 18px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 18px;
+            width: 200px;
+            text-align: center;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>Phone Sensor</h1>
+
+
+    <input
+        type="text"
+        id="busId"
+        placeholder="Enter Bus ID"
+    >
+
+
+    <br>
+
+
+    <button onclick="startSensor()">
+        Start
+    </button>
+
+
+    <br>
+
+
+    <video
+        id="camera"
+        autoplay
+        playsinline
+    ></video>
+
+
+    <div class="data">
+
+        <p>
+            Bus ID:
+            <span id="displayBusId">---</span>
+        </p>
+
+        <p>
+            Latitude:
+            <span id="latitude">---</span>
+        </p>
+
+        <p>
+            Longitude:
+            <span id="longitude">---</span>
+        </p>
+
+        <p>
+            Accuracy:
+            <span id="accuracy">---</span>
+            m
+        </p>
+
+        <p>
+            Connection:
+            <span id="connection">
+                Disconnected
+            </span>
+        </p>
+
+    </div>
+
+
+<script>
+
+let socket;
+
+let video;
+
+let canvas;
+
+let busId;
+
+
+// ------------------------------------
+// START SENSOR
+// ------------------------------------
+
+async function startSensor() {
+
+    console.log("Starting...");
+
+
+    // --------------------------------
+    // GET BUS ID
+    // --------------------------------
+
+    busId =
+        document.getElementById(
+            "busId"
+        ).value.trim();
+
+
+    if (!busId) {
+
+        alert(
+            "Please enter Bus ID."
+        );
+
+        return;
+    }
+
+
+    document.getElementById(
+        "displayBusId"
+    ).innerText = busId;
+
+
+    // --------------------------------
+    // CAMERA
+    // --------------------------------
+
+    try {
+
+        const stream =
+            await navigator.mediaDevices.getUserMedia({
+
+                video: {
+                    facingMode: {
+                        ideal: "environment"
+                    },
+
+                    width: {
+                        ideal: 640
+                    },
+
+                    height: {
+                        ideal: 480
+                    }
+                },
+
+                audio: false
+
+            });
+
+
+        video =
+            document.getElementById("camera");
+
+        video.srcObject = stream;
+
+        console.log("Camera started");
+
+    }
+
+    catch(error) {
+
+        console.error(
+            "Camera error:",
+            error
+        );
+
+        alert(
+            "Camera permission failed: "
+            + error.message
+        );
+
+        return;
+    }
+
+
+    // --------------------------------
+    // WEBSOCKET
+    // --------------------------------
+
+    const protocol =
+        window.location.protocol === "https:"
+        ? "wss:"
+        : "ws:";
+
+
+    socket = new WebSocket(
+        protocol
+        + "//"
+        + window.location.host
+        + "/ws"
+    );
+
+
+    socket.onopen = function() {
+
+        console.log(
+            "WebSocket connected"
+        );
+
+
+        document.getElementById(
+            "connection"
+        ).innerText = "Connected";
+
+
+        // --------------------------------
+        // SEND BUS ID
+        // --------------------------------
+
+        const busIdData = {
+
+            type: "bus_id",
+
+            bus_id: busId
+
+        };
+
+
+        socket.send(
+            JSON.stringify(
+                busIdData
+            )
+        );
+
+
+        console.log(
+            "Bus ID sent:",
+            busId
+        );
+
+
+        startGPS();
+
+        startCameraTransmission();
+
+    };
+
+
+    socket.onclose = function() {
+
+        console.log(
+            "WebSocket disconnected"
+        );
+
+        document.getElementById(
+            "connection"
+        ).innerText = "Disconnected";
+
+    };
+
+
+    socket.onerror = function(error) {
+
+        console.error(
+            "WebSocket error:",
+            error
+        );
+
+    };
+
+}
+
+
+// ------------------------------------
+// GPS
+// ------------------------------------
+
+function startGPS() {
+
+    if (!navigator.geolocation) {
+
+        alert(
+            "GPS/location is not supported."
+        );
+
+        return;
+    }
+
+
+    navigator.geolocation.watchPosition(
+
+        function(position) {
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+            const accuracy =
+                position.coords.accuracy;
+
+
+            // Display on phone
+
+            document.getElementById(
+                "latitude"
+            ).innerText =
+                latitude.toFixed(6);
+
+
+            document.getElementById(
+                "longitude"
+            ).innerText =
+                longitude.toFixed(6);
+
+
+            document.getElementById(
+                "accuracy"
+            ).innerText =
+                accuracy.toFixed(2);
+
+
+            // Send to laptop
+
+            if (
+                socket &&
+                socket.readyState === WebSocket.OPEN
+            ) {
+
+                const gpsData = {
+
+                    type: "gps",
+
+                    latitude: latitude,
+
+                    longitude: longitude,
+
+                    accuracy: accuracy,
+
+                    timestamp:
+                        Date.now()
+
+                };
+
+
+                socket.send(
+                    JSON.stringify(gpsData)
+                );
+
+            }
+
+        },
+
+
+        function(error) {
+
+            console.error(
+                "GPS error:",
+                error
+            );
+
+            alert(
+                "GPS error: "
+                + error.message
+            );
+
+        },
+
+
+        {
+
+            enableHighAccuracy: true,
+
+            maximumAge: 1000,
+
+            timeout: 10000
+
+        }
+
+    );
+
+}
+
+
+// ------------------------------------
+// CAMERA TRANSMISSION
+// ------------------------------------
+
+function startCameraTransmission() {
+
+    canvas =
+        document.createElement("canvas");
+
+
+    const context =
+        canvas.getContext("2d");
+
+
+    // Send approximately 5 frames/sec
+
+    setInterval(function() {
+
+        if (
+            !socket ||
+            socket.readyState !== WebSocket.OPEN
+        ) {
+            return;
+        }
+
+
+        if (
+            !video ||
+            video.readyState < 2
+        ) {
+            return;
+        }
+
+
+        canvas.width =
+            video.videoWidth;
+
+        canvas.height =
+            video.videoHeight;
+
+
+        context.drawImage(
+            video,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+
+        // JPEG compression
+
+        const image =
+            canvas.toDataURL(
+                "image/jpeg",
+                0.6
+            );
+
+
+        const cameraData = {
+
+            type: "camera",
+
+            image: image,
+
+            timestamp:
+                Date.now()
+
+        };
+
+
+        socket.send(
+            JSON.stringify(cameraData)
+        );
+
+
+    }, 200);
+
+}
+
+</script>
+
+</body>
+
+</html>
