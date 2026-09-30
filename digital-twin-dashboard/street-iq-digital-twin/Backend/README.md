@@ -7,7 +7,7 @@ The backend connects the React dashboard with the PostgreSQL road-segment datase
 ## Main Backend File
 
 ```text
-backend.py
+app.py
 ```
 
 ## Technology Stack
