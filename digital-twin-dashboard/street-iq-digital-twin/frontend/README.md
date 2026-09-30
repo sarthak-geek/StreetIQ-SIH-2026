@@ -1,16 +1,100 @@
-# React + Vite
+# Street IQ — Urban Digital Twin Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React and Vite frontend for the Street IQ Urban Digital Twin dashboard.
 
-Currently, two official plugins are available:
+The dashboard visualizes the Hinjewadi road network, road-segment observations, pothole locations, damaged-divider information, and dataset updates received from the Flask backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Technology Stack
 
-## React Compiler
+- React
+- Vite
+- React Leaflet
+- Leaflet
+- Turf.js (`@turf/turf`) for geospatial calculations
+- CSS
+- Flask API integration
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Hinjewadi road-network map
+- Road-segment visualization
+- Pothole location markers on map segments
+- Damaged-divider visualization
+- Road-anomaly display
+- Observation table for the road-segment dataset
+- Update Observations button for backend dataset refresh
+- Road Anomaly and Traffic Signal controls
+- Flask and PostgreSQL dataset integration
+- Geospatial calculations for road segments using Turf.js
+- Location-based pothole and road-anomaly positioning
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Folder Structure
+
+```text
+frontend/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── App.jsx
+│   ├── App.css
+│   ├── HinjewadiMap.jsx
+│   ├── HinjewadiMap.css
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── package.json
+└── vite.config.js
+```
+
+## Run Locally
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open the local URL shown by Vite, usually:
+
+```text
+http://localhost:5173
+```
+
+## Production Build
+
+Create the production build:
+
+```bash
+npm run build
+```
+
+The final production files are generated inside the `dist` folder.
+
+## Data Flow
+
+```text
+Update Observations Button
+        ↓
+Flask Backend API
+        ↓
+PostgreSQL Road-Segment Dataset
+        ↓
+Dashboard Map, Observation Table and Road-Anomaly Display
+```
+
+## Security
+
+- The frontend does not connect directly to PostgreSQL.
+- Database passwords and secrets must never be stored in frontend code.
+- Only the public backend API URL may be used in frontend environment variables.
+- Secrets must not use the `VITE_` prefix because those variables are visible in the browser.
+
+## Project Description
+
+Street IQ is an AI-enabled urban digital twin prototype for road-condition monitoring in Hinjewadi. It combines vehicle observations, AI-based anomaly detection, GPS data, Flask APIs, PostgreSQL, and a React dashboard.
