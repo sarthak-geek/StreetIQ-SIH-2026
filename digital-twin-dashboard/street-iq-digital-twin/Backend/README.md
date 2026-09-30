@@ -82,7 +82,7 @@ pip install -r requirements.txt
 Run the backend:
 
 ```bash
-python backend.py
+python app.py
 ```
 
 ## Deployment
