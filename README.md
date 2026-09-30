@@ -1,20 +1,24 @@
-#StreetIQ-SIH-2026
+# StreetIQ – AI-Powered Mobile Urban Intelligence Platform
 
-# AI-Powered Mobile Urban Intelligence Platform Using Public Transport Fleet
+StreetIQ is an AI-powered urban monitoring platform that transforms public transport buses into **mobile urban sensing units** using onboard cameras, GPS and Edge AI.
 
-An AI-powered urban monitoring platform that transforms public transport buses into **mobile urban sensing units** using onboard cameras, GPS, Edge AI and cloud-based analytics.
-
-The system detects road anomalies, monitors traffic conditions, processes accident footage and aggregates observations from multiple buses based on predefined road segments.
+The system detects road anomalies, monitors traffic conditions, processes accident/incident footage and aggregates observations from multiple buses using predefined road segments.
 
 ---
 
 ## 🚍 Overview
 
-Public buses repeatedly travel along fixed routes throughout the day. These routes are divided into predefined road segments, allowing observations collected by different buses to be associated with the same segment.
+Public buses repeatedly travel along assigned routes throughout the day. Each route is divided into predefined road segments with unique segment IDs.
 
-Instead of continuously sending complete camera footage to cloud servers, our system performs most of the processing on an **Edge device** and transfers only the required information.
+Instead of continuously transferring complete camera footage from every bus to cloud servers, StreetIQ performs most routine processing on an **edge device** and transfers only the required information.
 
-This reduces unnecessary **bandwidth usage, cloud processing and storage requirements**.
+This reduces unnecessary:
+
+- Network bandwidth
+- Cloud processing
+- Data storage
+
+Observations collected from different buses are grouped by road-segment ID and evaluated centrally.
 
 ---
 
@@ -22,24 +26,35 @@ This reduces unnecessary **bandwidth usage, cloud processing and storage require
 
 ```text
 Bus Camera + GPS
-       ↓
+       │
+       ▼
   5-Minute Buffer
-       ↓
-    Edge Device
-       ↓
-   YOLO / AI Model
-       ↓
- ┌───────────────┬────────────────┐
- │               │                │
-Road Anomalies  Traffic        Accidents
- │               │                │
- ↓               ↓                ↓
-Segment-wise   Vehicle Count   5-min Video
-Data            & Density       → Cloud AI
+       │
+       ▼
+   Edge Device
+       │
+       ▼
+ YOLO / AI Model
+       │
+ ┌─────┼──────────────┐
+ ▼     ▼              ▼
+Road  Traffic      Accident /
+Anomaly Analysis   Incident
+ │     │              │
+ ▼     ▼              ▼
+Segment  Vehicle    5-Minute
+Data     Count      Video
+ │       & Density     │
+ │                     ▼
+ │                  Cloud AI
  │
- ↓
-Cloud Database
-       ↓
-Segment-wise Data Aggregation
-       ↓
-Digital Twin / Dashboard
+ └──────────┬──────────┘
+            ▼
+       Cloud Database
+            │
+            ▼
+   Segment-wise Analysis
+            │
+            ▼
+    Digital Twin / GIS
+       Dashboard
